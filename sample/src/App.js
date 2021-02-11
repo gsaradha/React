@@ -64,7 +64,7 @@ class App extends Component{
         userOutput  = (
           <div>
             {user.map((elt,index)=>{
-                return <CharComponent char={elt}
+                return <CharComponent char={elt} key={index}
                 clicked={this.deleteCharHandler.bind(this,index)}></CharComponent>
             })
             }
@@ -79,7 +79,7 @@ class App extends Component{
            <Person name={this.state.persons[1].name} clicked={this.changeNameHandler} age={this.state.persons[1].age}> This is the second person</Person>
            <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
             <button onClick={this.switchHandler}>Click Me</button>
-            <input type="text" onChange={this.findLengthHandler}/>
+            <input type="text" onChange={this.findLengthHandler} value={this.state.enteredText}/>
             <p >{this.state.enteredText}</p>
             <Validation len={this.state.enteredTextLength}></Validation>
             {userOutput}
