@@ -35,7 +35,20 @@ import UserInput from './UserInput/UserInput';
       </div>
     );
   */
+ /* const StyledButton = styled.button `
+ background-color:${props => props.alt ? 'red' :'green'};
+ color:white;
+ font:inherit;
+ border:1px solid blue;
+ padding:8px;
+ cursor:pointer;
+ marginBottom: 16px;
 
+    &:hover{
+      background-color:${props => props.alt ? 'salmon' :'green'};
+      color:black;
+    }
+   ` */
   class App extends Component{
 
     state = {
@@ -97,14 +110,6 @@ import UserInput from './UserInput/UserInput';
     }
   
   render(){
-    const style = {
-      backgroundColor:'white',
-      font:'inherit',
-      border:'1px solid blue',
-      padding:'8px',
-      cursor:'pointer',
-      marginBottom: '16px'
-    }
 
     let persons=null;
 
@@ -129,17 +134,29 @@ import UserInput from './UserInput/UserInput';
             changed={this.nameChangedHandler} />
  */}
       </div>);
+   /*  style.backgroundColor = 'red';
+    style[':hover'] ={
+      backgroundColor:'salmon',
+      color:'black'
+    } */
+     
     }
 
-
+    let classes = [];
+    if(this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
+    }    
 
 
     return (
       <div className="App">
-        <p>This is React App</p>
-        <button style={style} onClick={this.togglePersonHandler}>Switch Name</button>
-  
-            
+        <p className={classes.join(' ')}>This is React App</p>
+{/*         <StyledButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Switch Name</StyledButton>
+ */}  
+          <button  onClick={this.togglePersonHandler}>Switch Name</button>   
         <UserOutput userName={this.state.username}></UserOutput>
         <UserOutput userName={this.state.username}>This is repetition</UserOutput>
         <UserInput userName={this.state.username} clicked ={this.changeUserNameHandler}></UserInput>
