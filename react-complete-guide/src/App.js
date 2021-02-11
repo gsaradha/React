@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput';
 import UserInput from './UserInput/UserInput';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+
 /*const app = props => {
   const [personsState, setPersonsState] =useState({
     persons:[
@@ -112,16 +114,18 @@ import UserInput from './UserInput/UserInput';
   render(){
 
     let persons=null;
+    let btnClass = [classes.button]
 
     if(this.state.showPersons){
      persons=( <div>
        {this.state.persons.map((person, index)=>{
-         return <Person 
+         return <ErrorBoundary  key = {person.id}>
+           <Person 
          click = {()=>this.deletePersonHandler(index)}
          name={person.name} 
          age={person.age} 
-         key = {person.id}
          changed={(event)=>{this.nameChangedHandler(event,person.id)}}/>
+         </ErrorBoundary>
        })}
        {/*  <Person 
             name={this.state.persons[0].name}  age={this.state.persons[0].age} />
@@ -134,6 +138,8 @@ import UserInput from './UserInput/UserInput';
             changed={this.nameChangedHandler} />
  */}
       </div>);
+
+        btnClass.push(classes.red);
    /*  style.backgroundColor = 'red';
     style[':hover'] ={
       backgroundColor:'salmon',
@@ -142,21 +148,21 @@ import UserInput from './UserInput/UserInput';
      
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if(this.state.persons.length <= 2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if(this.state.persons.length <= 1){
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }    
 
 
     return (
-      <div className="App">
-        <p className={classes.join(' ')}>This is React App</p>
+      <div className={classes.App}>
+        <p className={assignedClasses.join(' ')}>This is React App</p>
 {/*         <StyledButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Switch Name</StyledButton>
  */}  
-          <button  onClick={this.togglePersonHandler}>Switch Name</button>   
+          <button  className={btnClass.join(' ')} onClick={this.togglePersonHandler}>Switch Name</button>   
         <UserOutput userName={this.state.username}></UserOutput>
         <UserOutput userName={this.state.username}>This is repetition</UserOutput>
         <UserInput userName={this.state.username} clicked ={this.changeUserNameHandler}></UserInput>
