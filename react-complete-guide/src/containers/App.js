@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import UserOutput from './UserOutput/UserOutput';
-import UserInput from './UserInput/UserInput';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
-
+import UserOutput from '../components/UserOutput/UserOutput';
+import UserInput from '../components/UserInput/UserInput';
+import Persons from '../components/Persons/Persons';
 /*const app = props => {
   const [personsState, setPersonsState] =useState({
     persons:[
@@ -118,16 +116,13 @@ import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
     if(this.state.showPersons){
      persons=( <div>
-       {this.state.persons.map((person, index)=>{
-         return <ErrorBoundary  key = {person.id}>
-           <Person 
-         click = {()=>this.deletePersonHandler(index)}
-         name={person.name} 
-         age={person.age} 
-         changed={(event)=>{this.nameChangedHandler(event,person.id)}}/>
-         </ErrorBoundary>
-       })}
-       {/*  <Person 
+       <Persons
+          persons = {this.state.persons}
+          clicked = {this.deletePersonHandler}
+          changed = {this.nameChangedHandler} />
+          </div> );
+      
+       /*  <Person 
             name={this.state.persons[0].name}  age={this.state.persons[0].age} />
             <Person 
             name={this.state.persons[1].name} 
@@ -136,10 +131,10 @@ import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
             <Person 
             name={this.state.persons[2].name} age={this.state.persons[2].name}
             changed={this.nameChangedHandler} />
- */}
-      </div>);
+ */
+     
 
-        btnClass.push(classes.red);
+      //  btnClass.push(classes.red);
    /*  style.backgroundColor = 'red';
     style[':hover'] ={
       backgroundColor:'salmon',
