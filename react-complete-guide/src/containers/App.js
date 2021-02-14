@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import UserOutput from '../components/UserOutput/UserOutput';
-import UserInput from '../components/UserInput/UserInput';
 import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 /*const app = props => {
   const [personsState, setPersonsState] =useState({
     persons:[
@@ -50,6 +49,21 @@ import Persons from '../components/Persons/Persons';
     }
    ` */
   class App extends Component{
+    constructor(props){
+      super(props);
+      console.log("App Js constructor");
+      
+    }
+
+    static getDerivedStateFromProps(props,state){
+      console.log("App.js getderivedstatefromprops" +  props)
+      return state;
+    }
+
+   
+    componentDidMount(){
+      console.log("Appjs component did mount");
+    }
 
     state = {
       persons:[
@@ -108,19 +122,28 @@ import Persons from '../components/Persons/Persons';
         persons.splice(index,1);
         this.setState({persons:persons});
     }
+
+    componentDidUpdate(){
+      console.log("App js Component Did Update")
+    }
   
+    componentWillUnmount(){
+      console.log("App js ComponentWillUnmount")
+    }
+    shouldComponentUpdate(nextProps,nextState){
+      console.log("App js should component Update")
+      return true;
+    }
   render(){
-
+    console.log("App Js render")
     let persons=null;
-    let btnClass = [classes.button]
-
+    
     if(this.state.showPersons){
-     persons=( <div>
-       <Persons
+     persons=( <Persons
           persons = {this.state.persons}
           clicked = {this.deletePersonHandler}
           changed = {this.nameChangedHandler} />
-          </div> );
+         );
       
        /*  <Person 
             name={this.state.persons[0].name}  age={this.state.persons[0].age} />
@@ -143,24 +166,18 @@ import Persons from '../components/Persons/Persons';
      
     }
 
-    let assignedClasses = [];
-    if(this.state.persons.length <= 2){
-      assignedClasses.push(classes.red);
-    }
-    if(this.state.persons.length <= 1){
-      assignedClasses.push(classes.bold);
-    }    
-
+  
 
     return (
       <div className={classes.App}>
-        <p className={assignedClasses.join(' ')}>This is React App</p>
-{/*         <StyledButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Switch Name</StyledButton>
- */}  
-          <button  className={btnClass.join(' ')} onClick={this.togglePersonHandler}>Switch Name</button>   
-        <UserOutput userName={this.state.username}></UserOutput>
-        <UserOutput userName={this.state.username}>This is repetition</UserOutput>
-        <UserInput userName={this.state.username} clicked ={this.changeUserNameHandler}></UserInput>
+        <Cockpit
+        title={this.props.title}
+        showPersons = {this.state.showPersons}
+        persons={this.state.persons}
+        userName={this.state.username}
+        clickName={this.nameChangedHandler}
+        clicked={this.togglePersonHandler}></Cockpit>
+      
         {persons}
       </div>
     ); 

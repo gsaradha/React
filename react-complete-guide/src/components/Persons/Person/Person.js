@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import classes from './Person.css';
 /* import styled from 'styled-components';
 
@@ -16,17 +16,19 @@ margin-bottom: 10px;
     width:450px;
 }
 `; */
-const person=(props)=> {
+class Person extends Component{
+ render(){
     /* const rnd=Math.random();
     if(rnd > 0.7){
         throw new Error ('Something went wrong'); */
+        console.log("person Js rendering");
     return (
         <div className = {classes.Person}>
-            <p onClick={props.click}> I am {props.name} and {props.age} years old</p>
-            <p> Hobbies : {props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}/>
+            <p onClick={this.props.click}> I am {this.props.name} and {this.props.age} years old</p>
+            <p> Hobbies : {this.props.children}</p>
+            <input type="text" onChange={this.props.changed} value={this.props.name}/>
         </div>
     );
 };
-
-export default person;
+}
+export default Person;
