@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 import './NewPost.css';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Saradha'
+    }
+
+    handleAddPost=()=>{
+        const post={
+            title:this.state.title,
+            body:this.state.content,
+            author:this.state.author
+        }
+        axios.post('/posts',post)
+        .then(res=>console.log(res))
     }
 
     render () {
@@ -19,10 +29,10 @@ class NewPost extends Component {
                 <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})} />
                 <label>Author</label>
                 <select value={this.state.author} onChange={(event) => this.setState({author: event.target.value})}>
-                    <option value="Max">Max</option>
-                    <option value="Manu">Manu</option>
+                    <option value="Saradha">Saradha</option>
+                    <option value="Girish">Girish</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.handleAddPost}>Add Post</button>
             </div>
         );
     }
